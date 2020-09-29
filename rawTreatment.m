@@ -1,5 +1,17 @@
 % rawTreatment
-load('./HActo.mat');
+% Part 1
+% You might treat it as a convention
+dirPath = pwd;
+dirPath = [dirPath 'Data/'];
+%gsFilePath = [dirPath 'GS/'];
+%fixedPath = [dirPath 'GS_Fixed/'];
+%savePath = [dirPath 'mat/acto/'];
+matFile = [dirPath 'mat/HActo.mat'];
+%gsFileName = sort(split(ls(gsFilePath)));
+%gsFileName = gsFileName(2:end);
+%fileLen = length(gsFileName);
+
+load(matFile);
 % Check raw data
 
 filePath = HActo.rawMatPath;
@@ -132,4 +144,4 @@ fprintf('\n');
 varNames = {'index', 'fileName', 'timeDiffCheck', 'bnan', 'bnanPost', 'cnan', 'cnanPost'};
 HActo.property = table((1:HActo.fileLen)', HActo.fileList, td, bnanCount, bnanCountPost, cnanCount, cnanCountPost, 'VariableNames',varNames);
 
-save('HActo.mat', 'HActo', '-v7.3');
+save(matFile, 'HActo', '-v7.3');

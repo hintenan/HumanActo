@@ -1,9 +1,13 @@
 % Reading raw data into mat
 % NO TREATMENT AT ALL
-
-gsFilePath = './data/GS/';
-fixedPath = './data/GS_Fixed/';
-savePath = './data/mat/acto/';
+% Part 1
+% You might treat it as a convention
+dirPath = pwd;
+dirPath = [dirPath 'Data/'];
+gsFilePath = [dirPath 'GS/'];
+fixedPath = [dirPath 'GS_Fixed/'];
+savePath = [dirPath 'mat/acto/'];
+matFile = [dirPath 'mat/HActo.mat'];
 gsFileName = sort(split(ls(gsFilePath)));
 gsFileName = gsFileName(2:end);
 fileLen = length(gsFileName);
@@ -16,8 +20,8 @@ countFixed = 1;
 fixQueue = [];
 
 
-if exist('HActo.mat', 'file') == 2
-    load('HActo.mat')
+if exist(matFile, 'file') == 2
+    load(matFile)
     fileMod = HActo.fileMod;
     skipNum = HActo.skipNum;
     colStartTag = HActo.colStartTag;
@@ -178,4 +182,4 @@ HActo.colEndTag = datetime(colEndTag, 'Format', 'yyyy/MM/dd HH:mm:ss');
 HActo.fileStartTag = datetime(fileStartTag, 'Format', 'yyyy/MM/dd HH:mm:ss');
 HActo.fileEndTag = datetime(fileEndTag, 'Format', 'yyyy/MM/dd HH:mm:ss');
 
-save('HActo.mat', 'HActo', '-v7.3');
+save(matFile, 'HActo', '-v7.3');
