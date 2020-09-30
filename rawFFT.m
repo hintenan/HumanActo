@@ -1,9 +1,19 @@
- % fast intepret
+% fast intepret
+dirPath = pwd;
+dirPath = [dirPath 'Data/'];
+gsFilePath = [dirPath 'GS/'];
+fixedPath = [dirPath 'GS_Fixed/'];
+savePath = [dirPath 'mat/acto/'];
+matFile = [dirPath 'mat/HActo.mat'];
+gsFileName = sort(split(ls(gsFilePath)));
+gsFileName = gsFileName(2:end);
+fileLen = length(gsFileName);
+
+%%%%
 FFLevel = 1;
+%%%%
 
-load('HActo.mat')
-matFilePath = './data/mat/acto/';%HActo.filePath;
-
+load(matFile)
 fprintf('%d files total.\n', HActo.fileLen);
 
 
@@ -13,9 +23,9 @@ for i = 1:HActo.fileLen
     matFileName = HActo.fileList{i};
     
     if FFLevel == 1
-        load([matFilePath matFileName]);
+        load([savePath matFileName]);
         fprintf(repmat('\b', 1, lastsize));
-        lastsize = fprintf('loading %s\n', [matFilePath matFileName]);
+        lastsize = fprintf('loading %s\n', [savePath matFileName]);
         c = GSObj.c;
         a = GSObj.a;
         
@@ -44,7 +54,7 @@ for i = 1:HActo.fileLen
     end
     
     if FFLevel == 2
-        load([matFilePath matFileName]);
+        load([savePath matFileName]);
         fprintf('Loading %s\n', matFileName)
         xData = (1:length(c))' - 1;
         % fit routine
@@ -89,7 +99,7 @@ for i = 1:HActo.fileLen
     end
 end
 
-save('HActo.mat', 'HActo', '-v7.3')
+save(matFile, 'HActo', '-v7.3')
 
 
 

@@ -1,13 +1,18 @@
 % Reading raw data into mat
-
-gsFilePath = './data/HR5/';
-savePath = './data/mat/HR/';
+% Part 1
+% You might treat it as a convention
+dirPath = pwd;
+dirPath = [dirPath 'Data/'];
+gsFilePath = [dirPath 'HR5/'];
+savePath = [dirPath 'mat/HR5/'];
+matFile = [dirPath 'mat/HHR5.mat'];
 gsFileName = sort(split(ls(gsFilePath)));
 gsFileName = gsFileName(2:end);
 fileLen = length(gsFileName);
 
+
 lastsize = 0;
-for i = 1%:fileLen
+for i = 1:fileLen
     fprintf(repmat('\b', 1, lastsize));
     lastsize = fprintf('Fetching %s', gsFileName{i});
     
@@ -26,8 +31,8 @@ for i = 1%:fileLen
     save([savePath gsFileName{i}(1:end-4)], 'a', 'b', 'dayNum', 'dayName');
     
     
-    figure(1)
-    plot(tx, b, 'b-')
+    %figure(1)
+    %plot(tx, b, 'b-')
     %hold on
     %plot(a, c, 'r.-')
     %hold off
@@ -35,11 +40,11 @@ for i = 1%:fileLen
 end    
 fprintf('\n');
 
-FilePath = './data/mat/HR/';
+FilePath = savePath;
 FileName = sort(split(ls(FilePath)));
 FileName = FileName(2:end);
 fileLen = length(FileName);
 
-HHR.fileList = FileName;
-HHR.fileLen = fileLen;
-save('HHR.mat', 'HHR', '-v7.3')
+HHR5.fileList = FileName;
+HHR5.fileLen = fileLen;
+save(matFile, 'HHR5', '-v7.3')
